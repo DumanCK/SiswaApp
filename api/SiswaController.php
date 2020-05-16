@@ -10,6 +10,7 @@ class SiswaController extends Controller
     public function index()
     {
         $siswa = Siswa::all();
+
         $data = ['status'=>true, 'message'=>"Tampilkan semua data", 'data'=>$siswa];
         
         return $data;
@@ -22,19 +23,24 @@ class SiswaController extends Controller
         $siswa->alamat = $request->alamat;
         $siswa->save();
 
-        $data = ['status'=>true, 'message'=>"data ditambahkan", 'data'=>$siswa];
+        $xx[] = $siswa;
+
+        $data = ['status'=>true, 'message'=>"data ditambahkan", 'data'=>$xx];
         
         return $data;
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
+        $id = $request->id;
         $siswa=Siswa::find($id);
         $siswa->nama = $request->nama;
         $siswa->alamat = $request->alamat;
         $siswa->save();
 
-        $data = ['status'=>true, 'message'=>"data diupdate", 'data'=>$siswa];
+        $xx[] = $siswa;
+
+        $data = ['status'=>true, 'message'=>"data diupdate", 'data'=>$xx];
         
         return $data;
     }
@@ -42,9 +48,11 @@ class SiswaController extends Controller
     public function delete($id)
     {
         $siswa=Siswa::find($id);
-        $siswa=delete();
+        $siswa->delete();
 
-        $data = ['status'=>true, 'message'=>"data dihapus", 'data'=>$siswa];
+        $xx[] = ['id'=>(int)$id];
+
+        $data = ['status'=>true, 'message'=>"data dihapus", 'data'=>$xx];
         
         return $data;
     }
@@ -53,7 +61,8 @@ class SiswaController extends Controller
     {
         $siswa=Siswa::find($id);
         
-        $data = ['status'=>true, 'message'=>"data detail", 'data'=>$siswa];
+        $xx[] = $siswa;
+        $data = ['status'=>true, 'message'=>"data detail", 'data'=>$xx];
         
         return $data;   
     }

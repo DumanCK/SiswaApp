@@ -24,7 +24,7 @@ class _HomeScreenState extends State<HomeScreen> {
           'Siswa CRUD Apps',
           style: TextStyle(color: Colors.white),
         ),
-        backgroundColor: Colors.orange[400],
+        backgroundColor: Colors.green[400],
         automaticallyImplyLeading: true,
         actions: <Widget>[
           GestureDetector(
@@ -110,9 +110,11 @@ class _HomeScreenState extends State<HomeScreen> {
                               RaisedButton(
                                 child: Text("Ubah",
                                     style: TextStyle(color: Colors.white)),
-                                color: Colors.orange[400],
+                                color: Colors.green[400],
                                 onPressed: () {
-                                  // panggil FormScreen dengan parameter
+                                  Navigator.push(context, MaterialPageRoute(builder: (context) {
+                                      return FormScreen(kontak : kontakx);
+                                  }));
                                 },
                               ),
                               SizedBox(
@@ -121,9 +123,19 @@ class _HomeScreenState extends State<HomeScreen> {
                               RaisedButton(
                                 child: Text("Hapus",
                                     style: TextStyle(color: Colors.white)),
-                                color: Colors.orange[400],
+                                color: Colors.green[400],
                                 onPressed: () {
-                                  // panggil endpoint hapus
+                                  int id = kontakx.id;
+                                  api.delete(id).then((result) {
+                                      if (result != null) {
+                                          _scaffoldState.currentState.showSnackBar(SnackBar(
+                                              content: Text("Hapus data sukses"),));
+                                          setState(() {});
+                                      } else {
+                                          _scaffoldState.currentState.showSnackBar(SnackBar(
+                                              content: Text("Hapus data gagal"),));
+                                      }
+                                  });
                                 },
                               ),
                             ],

@@ -19,6 +19,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::get('siswa/tampil','SiswaController@index');
 Route::post('siswa/tambah','SiswaController@create');
-Route::get('/siswa/detail','SiswaController@detail');
-Route::put('/siswa/ubah','SiswaController@update');
-Route::delete('/siswa/hapus','SiswaController@delete');
+Route::get('siswa/detail/{id}','SiswaController@detail');
+Route::put('siswa/ubah','SiswaController@update');
+Route::delete('siswa/hapus/{id}','SiswaController@delete');

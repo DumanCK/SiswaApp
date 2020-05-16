@@ -5,7 +5,7 @@ import 'package:siswaapp/response/KontakResponse.dart';
 
 class ApiService {
   //saya pakai ip komputer saya
-  final String baseUrl = "http://192.168.0.105/SiswaApp/public/api/";
+  final String baseUrl = "http://192.168.0.106/SiswaApp/public/api/";
   KontakResponse r = new KontakResponse();
 
   Future<List<Kontak>> getAllKontak() async {
@@ -53,10 +53,10 @@ class ApiService {
     Map<String, dynamic> inputMap = {
       'nama': kontak.nama,
       'alamat': kontak.alamat,
-      'id': kontak.id
+      'id': kontak.id.toString()
     };
     
-    final response = await http.post(
+    final response = await http.put(
       baseUrl + "siswa/ubah",
       headers: {
         "Accept": "application/json",
@@ -74,17 +74,17 @@ class ApiService {
     }
   }
 
-  Future<Kontak> delete(String id) async {
-    Map<String, dynamic> inputMap = {
-      'id': id
-    };
-    final response = await http.post(
-      baseUrl + "siswa/hapus",
+  Future<Kontak> delete(int id) async {
+    // Map<String, dynamic> inputMap = {
+    //    'id': id.toString()
+    // };
+    final response = await http.delete(
+      baseUrl + "siswa/hapus/$id",
       headers: {
         "Accept": "application/json",
         "Content-Type": "application/x-www-form-urlencoded",
       },
-      body: inputMap,
+      // body: inputMap,
     );
 
     r = KontakResponse.fromJson(json.decode(response.body));
